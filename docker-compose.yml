@@ -4,7 +4,7 @@ services:
     image: consul:latest
     command: consul agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn -config-file=/consul/config/server_config.json
     volumes:
-      - ./consul/server.json:/consul/config/server_config.json
+      - ./consul/server_config.json:/consul/config/server_config.json
       - ./consul/data:/consul/data:rw
     ports:
       - 8500:8500
