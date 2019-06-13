@@ -1,0 +1,22 @@
+version: "3"
+services:
+  consul:
+    image: consul:latest
+    command: consul agent -server -dev -client=0.0.0.0 -ui -bootstrap -log-level warn -config-file=/consul/config/server_config.json
+    volumes:
+      - ./consul/server.json:/consul/config/server_config.json
+      - ./consul/data:/consul/data:rw
+    ports:
+      - 8500:8500
+  gateway:
+    image: traefik:latest
+    command: traefik --consulcatalog.endpoint=consul:8500
+    ports:
+      - "8080:8080"
+      - "80:80"
+    depends_on:
+      - consul
+    links:
+      - consul
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml

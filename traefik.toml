@@ -1,0 +1,25 @@
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+[web]
+address = ":8080"
+[consulCatalog]
+endpoint = "127.0.0.1:8500"
+domain = "consul.localhost"
+exposedByDefault = false
+prefix = "traefik"
+
+# Default frontEnd Rule for Consul services
+#
+# The format is a Go Template with:
+# - ".ServiceName", ".Domain" and ".Attributes" available
+# - "getTag(name, tags, defaultValue)", "hasTag(name, tags)" and "getAttribute(name, tags, defaultValue)" functions are available
+# - "getAttribute(...)" function uses prefixed tag names based on "prefix" value
+#
+# Optional
+#
+#frontEndRule = "Host:{{.ServiceName}}.{{Domain}}"
+#[frontends]
+#  [frontends.frontend-myapp]
+#  backend = "backend-myapp"
+
